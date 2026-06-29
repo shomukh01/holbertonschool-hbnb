@@ -42,9 +42,7 @@ classDiagram
 
 
 
-## Task 1: Detailed Class Diagram for Business Logic Layer
 
-### 📊 Interactive UML Class Diagram
 
 
 
