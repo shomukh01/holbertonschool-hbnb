@@ -40,7 +40,7 @@ classDiagram
     HBnB_Facade --> Core_Models : Manages
     Core_Models --> Repository : Persists Data
 
----------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## Task 1: Detailed Class Diagram for Business Logic Layer
 
