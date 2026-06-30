@@ -115,44 +115,28 @@ sequenceDiagram
     actor Client as Client / User
     participant API as Presentation (UserAPI)
     participant Facade as BLL (HBnB Facade)
-    participant Service as BLL (UserService)
+    participant Model as BLL (User Model)
     participant DB as Persistence (UserRepository)
 
     Client->>API: POST /api/v1/users (JSON payload)
-    activate API
-    API->>API: Validate Input (Check email & password format)
-    
+    API->>API: Validate Input Format (Email & Password)
     API->>Facade: register_user(registration_data)
-    activate Facade
+    Facade->>Model: Validate Constraints (Email Unique)
+    Model->>DB: find_by_email(email)
+    DB-->>Model: Return User Object / None
     
-    Facade->>Service: create_user(registration_data)
-    activate Service
-    
-    Service->>DB: find_by_email(email)
-    activate DB
-    DB-->>Service: Return User Object / None
-    deactivate DB
-    
-    alt Email already registered
-        Service-->>Facade: Raise Exception (UserExistsError)
+    alt Email already exists
+        Model-->>Facade: Raise Exception (UserExistsError)
         Facade-->>API: Return Error Status Mapping
-        API-->>Client: HTTP 400 Bad Request (Message: Email exists)
+        API-->>Client: HTTP 400 Bad Request (Email exists)
     else Email is unique
-        Service->>Service: Hash password & instantiate User
-        Service->>DB: save(user_instance)
-        activate DB
-        DB-->>Service: Confirm Persisted Entity
-        deactivate DB
-        
-        Service-->>Facade: Return created User object
-        deactivate Service
-        
+        Model->>Model: Hash Password & Generate UUID
+        Model->>DB: save(user_instance)
+        DB-->>Model: Confirm Persisted Entity
+        Model-->>Facade: Return created User object
         Facade-->>API: Return User DTO Data
-        deactivate Facade
-        
-        API-->>Client: HTTP 201 Created (JSON User Representation)
+        API-->>Client: HTTP 201 Created (JSON Representation)
     end
-    deactivate API
 
 
 ```
