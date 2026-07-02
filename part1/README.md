@@ -1,17 +1,18 @@
 # HBnB Evolution - Part 1: Technical Documentation
 
-This document contains the technical documentation for HBnB Evolution Part 1.
+This document presents the technical design of the HBnB Evolution application (Part 1). It provides the UML diagrams that describe the system architecture, the main business entities, and the interactions between application layers.
 
-It includes:
+The documentation includes:
+
 - High-Level Package Diagram
 - Business Logic Class Diagram
 - Sequence Diagrams
 
-These diagrams describe the system architecture, business logic, and API interaction flow.
-
 ---
 
 ## Task 0: High-Level Package Diagram
+
+This diagram presents the overall architecture of the application using a three-layer design. It also illustrates how the Presentation Layer communicates with the Business Logic Layer through the Facade pattern, while the Business Logic Layer interacts with the Persistence Layer for data storage.
 
 ```mermaid
 classDiagram
@@ -55,6 +56,8 @@ classDiagram
 ---
 
 ## Task 1: Detailed Class Diagram for Business Logic Layer
+
+The following class diagram represents the main business entities of the system. It includes their attributes, operations, inheritance relationships, and associations that define how the entities interact with one another.
 
 ```mermaid
 classDiagram
@@ -118,9 +121,11 @@ classDiagram
 
 ## Task 2: Sequence Diagrams for API Calls
 
+The following sequence diagrams describe how requests move through the Presentation, Business Logic, and Persistence layers for common application operations.
+
 ### 1. User Registration
 
-This diagram captures the workflow when a user signs up for a new account.
+This sequence shows the process of creating a new user account, including input validation, uniqueness verification, data persistence, and the response returned to the client.
 
 ```mermaid
 sequenceDiagram
@@ -154,6 +159,8 @@ sequenceDiagram
 
 ### 2. Place Creation
 
+This sequence illustrates how a new place is created, validated, stored, and returned to the client after successful processing.
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -177,6 +184,8 @@ sequenceDiagram
 
 ### 3. Review Submission
 
+This sequence demonstrates how a review is validated, saved, and returned after a successful submission.
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -198,6 +207,8 @@ sequenceDiagram
 ```
 
 ### 4. Fetching a List of Places
+
+This sequence describes how the application retrieves a filtered list of places and returns the formatted results to the client.
 
 ```mermaid
 sequenceDiagram
